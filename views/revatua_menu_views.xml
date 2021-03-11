@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- MAIN MENU -->
+    <menuitem name="Maritime"
+        id="revatua_main_menu"
+        sequence="65"/>
+
+    <!-- HEADER: GESTION -->
+    <menuitem name="Gestion"
+        id="menu_revatua_gestion"
+        sequence="1"
+        parent="revatua_main_menu"
+        />
+
+    <!-- HEADER: CONFIGURATION -->
+    <menuitem name="Configuration"
+        id="menu_revatua_configuration"
+        sequence="99"
+        parent="revatua_main_menu"
+        />
+
+    <menuitem name="Navires"
+        id="menu_revatua_navire"
+        sequence="1"
+        parent="menu_revatua_configuration"
+        />
+
+    <menuitem name="Douane"
+        id="menu_revatua_douane"
+        sequence="2"
+        parent="menu_revatua_configuration"
+        />
+
+    <menuitem name="Matière Dangereuse"
+        id="menu_revatua_matiere_dangereuse"
+        sequence="3"
+        parent="menu_revatua_configuration"
+        />
+</odoo>
+

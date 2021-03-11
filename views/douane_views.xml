@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!--VUES GESTION-->
+        <!--VUES VOYAGE-->
+        <record model="ir.ui.view" id="view_revatua_voyage_form">
+            <field name="name">revatua_profile.voyage.form</field>
+            <field name="model">voyage</field>
+            <field name="arch" type="xml">
+                <form string="Voyage">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1> 
+                        </div>
+                        <group>
+                            <field name="navire_id"/>
+                            <field name="date_depart"/>
+                            <field name="date_arivee"/>
+                            <field name="ile_depart_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Trajets" name="voyage_communication">
+                                <field name="periple_ids" widget="section_and_note_one2many" mode="form,tree">
+                                    <form>
+                                        <field name="name"/>
+                                        <group>
+                                            <field name="date_depart"/>
+                                            <field name="ile_depart_id"/>
+                                            <field name="lieu_depart_id"/>
+                                        </group>
+                                        <group>
+                                            <field name="date_arivee"/>
+                                            <field name="ile_arivee_id"/>
+                                            <field name="lieu_arivee_id"/>
+                                        </group>
+                                    </form>
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="date_depart"/>
+                                        <field name="ile_depart_id"/>
+                                        <field name="lieu_depart_id"/>
+                                        <field name="date_arivee"/>
+                                        <field name="ile_arivee_id"/>
+                                        <field name="lieu_arivee_id"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile" sample="1">
+                                        <field name="name"/>
+                                        <field name="date_depart"/>
+                                        <field name="ile_depart_id"/>
+                                        <field name="lieu_depart_id"/>
+                                        <field name="date_arivee"/>
+                                        <field name="ile_arivee_id"/>
+                                        <field name="lieu_arivee_id"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                    <div class="o_kanban_record_top mb16">
+                                                        <div class="o_kanban_record_headings mt4">
+                                                            <strong class="o_kanban_record_title"><span><t t-esc="record.name.value"/></span></strong>
+                                                        </div>
+                                                        <strong><field name="ile_depart_id"/></strong>
+                                                    </div>
+                                                    <div class="o_kanban_record_bottom">
+                                                        <div class="oe_kanban_bottom_left text-muted">
+                                                            <span><t t-esc="record.ile_depart_id.value"/> <t t-esc="record.ile_arivee_id.value"/></span>
+                                                        </div>
+                                                        <div class="oe_kanban_bottom_right">
+                                                            <field name="lieu_depart_id"/>
+                                                            <field name="lieu_arivee_id"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form> 
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_revatua_voyage_tree">
+            <field name="name">revatua_profile.voyage.tree</field>
+            <field name="model">voyage</field>
+            <field name="arch" type="xml">
+                <tree string="Voyages">
+                    <field name="name"/>
+                    <field name="navire_id"/>
+                    <field name="date_depart"/>
+                    <field name="ile_depart_id"/>
+                    <field name="date_arivee" string="Retour"/>
+                    <field name="annule"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_revatua_voyage_calendar">
+            <field name="name">revatua_profile.voyage.calendar</field>
+            <field name="model">voyage</field>
+            <field eval="3" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar date_start="date_depart" date_stop="date_arivee" string="Organisation de voyages" mode="month" event_limit="5">
+                    <field name="name" />
+                    <field name="ile_depart_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="view_revatua_voyage_kanban" model="ir.ui.view">
+            <field name="name">revatua_profile.voyage.kanban</field>
+            <field name="model">voyage</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1">
+                    <field name="name"/>
+                    <field name="navire_id"/>
+                    <field name="date_depart"/>
+                    <field name="ile_depart_id"/>
+                    <field name="lieu_debarquement_depart_id"/>
+                    <field name="date_arivee"/>
+                    <field name="ile_arivee_id"/>
+                    <field name="lieu_debarquement_arivee_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong><span><t t-esc="record.name.value"/></span></strong>
+                                        <t t-esc="record.navire_id.value"/> 
+                                    </div>
+                                </div>
+                                <t t-if="record.date_depart.value">
+                                    <hr class="mt8 mb8"/>
+                                    <t t-esc="record.date_depart.value"/> 
+                                    <t t-esc="record.ile_depart_id.value"/>
+                                </t>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_revatua_voyage_view">
+            <field name="name">Voyages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">voyage</field>
+            <field name="view_mode">tree,form,calendar,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                        Ajouter un nouveau voyage
+                </p>
+            </field>
+        </record>
+
+        <record id="revatua_profile.menu_revatua_gestion" model="ir.ui.menu">
+            <field name="action" ref="revatua_profile.action_revatua_voyage_view"/>
+        </record>
+
+        <!--VUES CONFIGURATION-->
+
+        <!--NAVIRE-->
+        <record model="ir.ui.view" id="view_revatua_navire_form">
+            <field name="name">revatua_profile.navire.form</field>
+            <field name="model">navire</field>
+            <field name="arch" type="xml">
+                <form string="Navire">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Nom du navire"/>
+                            <h1><field name="name"/></h1> 
+                        </div>
+                        <group>
+                            <field name="abbreviation"/>
+                            <field name="vehicule_roulant"/>
+                            <field name="croisiere"/>
+                            <field name="id_revatua"/>
+                        </group>
+                    </sheet>
+                </form> 
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_revatua_navire_tree">
+            <field name="name">revatua_profile.navire.tree</field>
+            <field name="model">navire</field>
+            <field name="arch" type="xml">
+                <tree string="Voyages">
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_revatua_navire_view">
+            <field name="name">Navires</field>
+            <field name="res_model">navire</field>
+        </record>
+
+        <record id="revatua_profile.menu_revatua_navire" model="ir.ui.menu">
+            <field name="action" ref="action_revatua_navire_view"/>
+        </record>
+
+        <!--DOUANE-->
+        <record model="ir.ui.view" id="view_revatua_nomenclature_douane_form">
+            <field name="name">revatua_profile.nomenclature.douane.form</field>
+            <field name="model">nomenclature.douane</field>
+            <field name="arch" type="xml">
+                <form string="Nomenclature Douanière">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="libelle" class="oe_edit_only" string="Libelle de nomenclature"/>
+                            <h1><field name="libelle"/></h1> 
+                        </div>
+                        <group>
+                            <field name="version"/>
+                            <field name="variation_id"/>
+                            <field name="unite_mesure_douane_id"/>
+                            <field name="categorie_matiere_dangereuse_id"/>
+                        </group>
+                    </sheet>
+                </form> 
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_revatua_nomenclature_douane_tree">
+            <field name="name">revatua_profile.nomenclature.douane.tree</field>
+            <field name="model">nomenclature.douane</field>
+            <field name="arch" type="xml">
+                <tree string="Nomenclatures">
+                    <field name="version"/>
+                    <field name="variation_id"/>
+                    <field name="unite_mesure_douane_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_revatua_nomenclature_douane_view">
+            <field name="name">Nomenclatures</field>
+            <field name="res_model">nomenclature.douane</field>
+        </record>
+
+        <record id="revatua_profile.menu_revatua_douane" model="ir.ui.menu">
+            <field name="action" ref="action_revatua_nomenclature_douane_view"/>
+        </record>
+    </data>
+</odoo>

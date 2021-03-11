@@ -14,13 +14,18 @@ Ce module permet de se conneter à l'API de Revatua
 
     # any module necessary for this one to work correctly
     'depends': [
-        'auth_oauth',
+        'base',
+        'l10n_pf_archipels',
     ],
 
     # always loaded
     'data': [
-        'views/auth_oauth_views.xml',
-        'data/auth_oauth_data.xml',
+        'security/revatua_security.xml',
+        'security/ir.model.access.csv',
+        'data/res.country.state.csv',
+        'views/revatua_menu_views.xml',
+        'views/voyage_views.xml',
+        'views/res_company_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

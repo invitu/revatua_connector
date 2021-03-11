@@ -8,8 +8,7 @@
         <field name="arch" type="xml">
             <!--add new fields-->
             <field name = "validation_endpoint" position="after">
-                <field name="response_type" />
-                <field name="client_secret" password="True" attrs="{'invisible': [('response_type', '!=', 'code')], 'required': [('response_type', '=', 'code')]}"/>
+                <field name="client_secret"/>
             </field>
         </field>
     </record>

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="provider_AWS" model="auth.oauth.provider">
+        <record id="provider_revatua_AWS" model="auth.oauth.provider">
             <field name="name">Revatua Amazon Cognito</field>
             <field name="auth_endpoint"></field>
             <field name="scope"></field>
-            <field name="validation_endpoint">https://revatua.auth.us-west-2.amazoncognito.com/oauth2/token</field>
+            <field name="validation_endpoint">https://auth-revatua.auth.us-west-2.amazoncognito.com/oauth2/token</field>
             <field name="css_class"></field>
             <field name="body">Log in with Revatua Amazon Cognito</field>
-            <field name="response_type">code</field>
         </record>
     </data>
 </odoo>

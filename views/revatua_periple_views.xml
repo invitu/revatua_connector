@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_revatua_trajet_form">
+        <field name="name">revatua_profile.trajet.form</field>
+        <field name="model">trajet</field>
+        <field name="arch" type="xml">
+            <form string="Trajet">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_depart"/>
+                            <field name="ile_depart_id"/>
+                            <field name="lieu_depart_id"/>
+                        </group>
+                        <group>
+                            <field name="date_arivee"/>
+                            <field name="ile_arivee_id"/>
+                            <field name="lieu_arivee_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form> 
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_revatua_trajet_tree">
+        <field name="name">revatua_profile.trajet.tree</field>
+        <field name="model">trajet</field>
+        <field name="arch" type="xml">
+            <tree string="Periples" editable="bottom">
+                <field name="date_depart"/>
+                <field name="ile_depart_id"/>
+                <field name="lieu_depart_id"/>
+            </tree> 
+        </field>
+    </record>
+</odoo>
