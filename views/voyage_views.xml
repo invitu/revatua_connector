@@ -3,7 +3,7 @@
     <!--VUES GESTION-->
     <!--VUES VOYAGE-->
     <record model="ir.ui.view" id="view_revatua_voyage_form">
-        <field name="name">revatua_profile.voyage.form</field>
+        <field name="name">revatua_connector.voyage.form</field>
         <field name="model">voyage</field>
         <field name="arch" type="xml">
             <form string="Voyage">
@@ -96,7 +96,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_revatua_voyage_tree">
-        <field name="name">revatua_profile.voyage.tree</field>
+        <field name="name">revatua_connector.voyage.tree</field>
         <field name="model">voyage</field>
         <field name="arch" type="xml">
             <tree string="Voyages">
@@ -112,7 +112,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_revatua_voyage_calendar">
-        <field name="name">revatua_profile.voyage.calendar</field>
+        <field name="name">revatua_connector.voyage.calendar</field>
         <field name="model">voyage</field>
         <field eval="3" name="priority"/>
         <field name="arch" type="xml">
@@ -124,7 +124,7 @@
     </record>
 
     <record id="view_revatua_voyage_kanban" model="ir.ui.view">
-        <field name="name">revatua_profile.voyage.kanban</field>
+        <field name="name">revatua_connector.voyage.kanban</field>
         <field name="model">voyage</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" sample="1">
@@ -170,15 +170,15 @@
         </field>
     </record>
 
-    <record id="revatua_profile.menu_revatua_gestion" model="ir.ui.menu">
-        <field name="action" ref="revatua_profile.action_revatua_voyage_view"/>
+    <record id="revatua_connector.menu_revatua_gestion" model="ir.ui.menu">
+        <field name="action" ref="revatua_connector.action_revatua_voyage_view"/>
     </record>
 
     <!--VUES CONFIGURATION-->
 
     <!--NAVIRE-->
     <record model="ir.ui.view" id="view_revatua_navire_form">
-        <field name="name">revatua_profile.navire.form</field>
+        <field name="name">revatua_connector.navire.form</field>
         <field name="model">navire</field>
         <field name="arch" type="xml">
             <form string="Navire">
@@ -199,7 +199,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_revatua_navire_tree">
-        <field name="name">revatua_profile.navire.tree</field>
+        <field name="name">revatua_connector.navire.tree</field>
         <field name="model">navire</field>
         <field name="arch" type="xml">
             <tree string="Voyages">
@@ -214,7 +214,7 @@
         <field name="res_model">navire</field>
     </record>
 
-    <record id="revatua_profile.menu_revatua_navire" model="ir.ui.menu">
+    <record id="revatua_connector.menu_revatua_navire" model="ir.ui.menu">
         <field name="action" ref="action_revatua_navire_view"/>
     </record>
 

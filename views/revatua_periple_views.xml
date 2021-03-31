@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <record model="ir.ui.view" id="view_revatua_trajet_form">
-        <field name="name">revatua_profile.trajet.form</field>
+        <field name="name">revatua_connector.trajet.form</field>
         <field name="model">trajet</field>
         <field name="arch" type="xml">
             <form string="Trajet">
@@ -24,7 +24,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_revatua_trajet_tree">
-        <field name="name">revatua_profile.trajet.tree</field>
+        <field name="name">revatua_connector.trajet.tree</field>
         <field name="model">trajet</field>
         <field name="arch" type="xml">
             <tree string="Periples" editable="bottom">

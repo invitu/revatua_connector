@@ -21,7 +21,6 @@ class ResCompany(models.Model):
     revatua_token_expiry_date = fields.Datetime(string='Expiry Date')
 
     def get_token(self):
-        __import__('pdb').set_trace()
         data = {
             "grant_type": "client_credentials",
             "client_id": self.revatua_client_id,

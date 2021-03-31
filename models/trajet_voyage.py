@@ -22,7 +22,6 @@ class Trajet(models.Model):
     generer_manifeste = fields.Boolean(string='Générer manifeste')
     date_derniere_modification_connaissement = fields.Datetime(string='Date de la derniere  modification de connaissement')
 
-
     @api.onchange('ile_depart_id')
     def ile_depart_id_change(self):
         if not self.ile_depart_id:
@@ -50,6 +49,7 @@ class Voyage(models.Model):
 
     name = fields.Char('Numéro de voyage',
                        readonly=True,
+                       copy=False,
                        help='Le numéro de voyage, identifiant unique')
     state = fields.Selection(
         selection=[
