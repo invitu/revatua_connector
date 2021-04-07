@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields, models, api
+from datetime import datetime
 
 
 class Trajet(models.Model):
@@ -60,33 +61,54 @@ class Voyage(models.Model):
     version = fields.Char('Version', help="La version des données - pour gérer les problèmes de concurrence")
     navire_id = fields.Many2one(comodel_name='navire', string='Navire',
                                 readonly=True,
-                                states={'draft': [('readonly', False)]},
+                                states={
+                                    'draft': [('readonly', False)],
+                                    'confirm': [('readonly', False)],
+                                },
                                 )
     date_depart = fields.Datetime(string='Date de depart',
                                   readonly=True,
-                                  states={'draft': [('readonly', False)]},
+                                  states={
+                                      'draft': [('readonly', False)],
+                                      'confirm': [('readonly', False)],
+                                  },
                                   help='Date de départ du premier trajet du voyage')
     ile_depart_id = fields.Many2one(comodel_name='res.country.state', string='Ile de départ',
                                     readonly=True,
-                                    states={'draft': [('readonly', False)]},
+                                    states={
+                                        'draft': [('readonly', False)],
+                                        'confirm': [('readonly', False)],
+                                    },
                                     )
     lieu_debarquement_depart_id = fields.Many2one(
         comodel_name='res.partner', string='Lieu de debarquement pour le départ',
         readonly=True,
-        states={'draft': [('readonly', False)]},
+        states={
+            'draft': [('readonly', False)],
+            'confirm': [('readonly', False)],
+        },
     )
     date_arrivee = fields.Datetime(string="Date d'arivée",
                                    readonly=True,
-                                   states={'draft': [('readonly', False)]},
+                                   states={
+                                       'draft': [('readonly', False)],
+                                       'confirm': [('readonly', False)],
+                                   },
                                    help="Date d'arrivée du dernier trajet du voyage")
     ile_arrivee_id = fields.Many2one(comodel_name='res.country.state', string="Ile d'arrivee",
                                      readonly=True,
-                                     states={'draft': [('readonly', False)]},
+                                     states={
+                                         'draft': [('readonly', False)],
+                                         'confirm': [('readonly', False)],
+                                     },
                                      )
     lieu_debarquement_arrivee_id = fields.Many2one(
         comodel_name='res.partner', string="Lieu de debarquement pour l'arivée",
         readonly=True,
-        states={'draft': [('readonly', False)]},
+        states={
+            'draft': [('readonly', False)],
+            'confirm': [('readonly', False)],
+        },
     )
     numero_armateur = fields.Char(string='Numéro Armateur', help="Numérotation du voyage propre à l'armateur")
     date_edition_avis_depart = fields.Date(string="Date d'édition de l'avis de départ")
@@ -95,44 +117,73 @@ class Voyage(models.Model):
     trajet_ids = fields.One2many(
         comodel_name='trajet', inverse_name='voyage_id', string='Trajets',
         readonly=True,
-        states={'draft': [('readonly', False)]},
+        states={
+            'draft': [('readonly', False)],
+            'confirm': [('readonly', False)],
+        },
     )
     date_dernier_maj = fields.Datetime(string='Date de MAJ')
 
-    def action_confirm(self):
-        if not self.name:
-            periple = []
-            for line in self.trajet_ids:
-                periple.append({
-                    "dateDepart": line.date_depart.strftime("%Y-%m-%d"),
-                    "heureDepart": line.date_depart.strftime("%H:%M"),
-                    "idIleDepart": line.ile_depart_id.id_revatua,
-                    # "idlieudepart": line.lieu_depart_id.id_revatua,
-                    "dateArrivee": line.date_arrivee.strftime("%Y-%m-%d"),
-                    "idIleArrivee": line.ile_arrivee_id.id_revatua,
-                    "heureArrivee": line.date_arrivee.strftime("%H:%M"),
-                    # "idlieuarrivee":  line.lieu_arrivee_id.id_revatua
-                })
+    def _get_periple(self):
+        periple = []
+        for line in self.trajet_ids:
+            periple.append({
+                "dateDepart": line.date_depart.strftime("%Y-%m-%d"),
+                "heureDepart": line.date_depart.strftime("%H:%M"),
+                "idIleDepart": line.ile_depart_id.id_revatua,
+                # "idlieudepart": line.lieu_depart_id.id_revatua,
+                "dateArrivee": line.date_arrivee.strftime("%Y-%m-%d"),
+                "idIleArrivee": line.ile_arrivee_id.id_revatua,
+                "heureArrivee": line.date_arrivee.strftime("%H:%M"),
+                # "idlieuarrivee":  line.lieu_arrivee_id.id_revatua
+                "version": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-2]
+            })
+        return periple
 
-            payload = {
-                "idNavire": self.navire_id.id_revatua,
-                "periple": periple,
-            }
-            voyage_response = self.env['revatua.api'].api_post("voyages", payload)
-            self.name = voyage_response.json()["numero"]
-        else:
-            payload = {
-                "annule": False,
-            }
-            url = 'voyages/' + self.name
-            voyage_response = self.env['revatua.api'].api_put(url, payload)
-        self.state = 'confirm'
+    def action_confirm(self):
+        for voyage in self:
+            if not voyage.name:
+                periple = voyage._get_periple()
+                payload = {
+                    "idNavire": voyage.navire_id.id_revatua,
+                    "periple": periple,
+                }
+                voyage_response = voyage.env['revatua.api'].api_post("voyages", payload)
+                voyage.name = voyage_response.json()["numero"]
+            else:
+                payload = {
+                    "annule": False,
+                }
+                url = 'voyages/' + voyage.name
+                voyage_response = voyage.env['revatua.api'].api_put(url, payload)
+            voyage.state = 'confirm'
 
     def action_cancel(self):
         if self.name:
             url = 'voyages/' + self.name
             voyage_response = self.env['revatua.api'].api_patch(url)
         self.state = 'cancel'
+
+    def write(self, values):
+        res = super(Voyage, self).write(values)
+        if self.name and values.get('trajet_ids'):
+            periple = self._get_periple()
+            version = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-2]
+            payload = {
+                "idNavire": self.navire_id.id_revatua,
+                "dateDepart": self.date_depart.strftime("%Y-%m-%d"),
+                "heureDepart": self.date_depart.strftime("%H:%M"),
+                "idileDepart": self.ile_depart_id.id_revatua,
+                "dateArrivee": self.date_arrivee.strftime("%Y-%m-%d"),
+                "heureArrivee": self.date_arrivee.strftime("%H:%M"),
+                "idileArrivee": self.ile_arrivee_id.id_revatua,
+                "periple": periple,
+                "version": version,
+            }
+            print(payload)
+            url = 'voyages/' + self.name
+            voyage_response = self.env['revatua.api'].api_put(url, payload)
+        return res
 
 
 class TrajetTemporaire(models.Model):

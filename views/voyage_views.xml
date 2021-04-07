@@ -26,6 +26,7 @@
                         <field name="date_depart"/>
                         <field name="date_arrivee"/>
                         <field name="ile_depart_id"/>
+                        <field name="ile_arrivee_id"/>
                     </group>
                     <notebook>
                         <page string="Trajets" name="voyage_communication">
@@ -173,6 +174,16 @@
     <record id="revatua_connector.menu_revatua_gestion" model="ir.ui.menu">
         <field name="action" ref="revatua_connector.action_revatua_voyage_view"/>
     </record>
+
+    <record id="model_voyage_action_confirm" model="ir.actions.server">
+        <field name="name">Confirm Voyage</field>
+        <field name="model_id" ref="revatua_connector.model_voyage"/>
+        <field name="binding_model_id" ref="revatua_connector.model_voyage"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_confirm()</field>
+    </record>
+
 
     <!--VUES CONFIGURATION-->
 

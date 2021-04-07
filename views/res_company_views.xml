@@ -8,12 +8,15 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page string="Revatua Infos">
-                    <field name="revatua_endpoint"/>
-                    <field name="revatua_client_id"/>
-                    <field name="revatua_client_secret"/>
-                    <field name="revatua_oauth_access_token"/>
-                    <field name="revatua_token_expiry_date"/>
-                    <button name="get_token" string="Get token" type="object" icon="fa-check"/>
+                    <group colspan="4">
+                        <field name="revatua_endpoint"/>
+                        <field name="revatua_scope"/>
+                        <field name="revatua_client_id"/>
+                        <field name="revatua_client_secret"/>
+                        <field name="revatua_oauth_access_token"/>
+                        <field name="revatua_token_expiry_date"/>
+                        <button name="get_token" string="Get token" type="object" icon="fa-check"/>
+                    </group>
                 </page>
             </notebook>
         </field>

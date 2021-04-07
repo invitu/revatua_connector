@@ -15,6 +15,7 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     revatua_endpoint = fields.Char(string='Validation URL', default="https://auth-revatua.auth.us-west-2.amazoncognito.com/oauth2/token")  # OAuth provider URL to validate tokens
+    revatua_scope = fields.Char(string='Scope', help="REVATUA/api.armateur")
     revatua_client_id = fields.Char(string='Client ID')  # Our identifier
     revatua_client_secret = fields.Char(string='Client Secret')
     revatua_oauth_access_token = fields.Char(string='OAuth Access Token', copy=False)
@@ -25,7 +26,7 @@ class ResCompany(models.Model):
             "grant_type": "client_credentials",
             "client_id": self.revatua_client_id,
             "client_secret": self.revatua_client_secret,
-            "scope": "REVATUA/api.armateur"
+            "scope": self.revatua_scope,
         }
         try:
             r = requests.post(self.revatua_endpoint, data=data)
