@@ -131,12 +131,11 @@ class Voyage(models.Model):
                 "dateDepart": line.date_depart.strftime("%Y-%m-%d"),
                 "heureDepart": line.date_depart.strftime("%H:%M"),
                 "idIleDepart": line.ile_depart_id.id_revatua,
-                # "idlieudepart": line.lieu_depart_id.id_revatua,
+                "idlieudepart": line.lieu_depart_id.id_revatua,
                 "dateArrivee": line.date_arrivee.strftime("%Y-%m-%d"),
                 "idIleArrivee": line.ile_arrivee_id.id_revatua,
                 "heureArrivee": line.date_arrivee.strftime("%H:%M"),
-                # "idlieuarrivee":  line.lieu_arrivee_id.id_revatua
-                "version": datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-2]
+                "idlieuarrivee":  line.lieu_arrivee_id.id_revatua
             })
         return periple
 
@@ -150,6 +149,7 @@ class Voyage(models.Model):
                 }
                 voyage_response = voyage.env['revatua.api'].api_post("voyages", payload)
                 voyage.name = voyage_response.json()["numero"]
+                voyage.version = voyage_response.json()["version"]
             else:
                 payload = {
                     "annule": False,
@@ -168,21 +168,16 @@ class Voyage(models.Model):
         res = super(Voyage, self).write(values)
         if self.name and values.get('trajet_ids'):
             periple = self._get_periple()
-            version = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")[:-2]
+            version = self.version
             payload = {
                 "idNavire": self.navire_id.id_revatua,
-                "dateDepart": self.date_depart.strftime("%Y-%m-%d"),
-                "heureDepart": self.date_depart.strftime("%H:%M"),
-                "idileDepart": self.ile_depart_id.id_revatua,
-                "dateArrivee": self.date_arrivee.strftime("%Y-%m-%d"),
-                "heureArrivee": self.date_arrivee.strftime("%H:%M"),
-                "idileArrivee": self.ile_arrivee_id.id_revatua,
                 "periple": periple,
                 "version": version,
             }
             print(payload)
             url = 'voyages/' + self.name
             voyage_response = self.env['revatua.api'].api_put(url, payload)
+            self.version = voyage_response.json()["version"]
         return res
 
 
