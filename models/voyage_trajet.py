@@ -150,6 +150,10 @@ class Voyage(models.Model):
                 voyage_response = voyage.env['revatua.api'].api_post("voyages", payload)
                 voyage.name = voyage_response.json()["numero"]
                 voyage.version = voyage_response.json()["version"]
+                voyage.date_depart = datetime.combine(
+                    datetime.strptime(voyage_response.json()["dateDepart"], '%Y-%m-%d'),
+                    datetime.strptime(voyage_response.json()["heureDepart"], '%H:%M:%S').time(),
+                )
             else:
                 payload = {
                     "annule": False,
@@ -178,6 +182,10 @@ class Voyage(models.Model):
             url = 'voyages/' + self.name
             voyage_response = self.env['revatua.api'].api_put(url, payload)
             self.version = voyage_response.json()["version"]
+            self.date_depart = datetime.combine(
+                datetime.strptime(voyage_response.json()["dateDepart"], '%Y-%m-%d'),
+                datetime.strptime(voyage_response.json()["heureDepart"], '%H:%M:%S').time(),
+            )
         return res
 
 
