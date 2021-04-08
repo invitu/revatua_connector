@@ -47,6 +47,7 @@ class Navire(models.Model):
 class Voyage(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _name = 'voyage'
+    _order = 'date_depart'
 
     name = fields.Char('Numéro de voyage',
                        readonly=True,
@@ -123,6 +124,25 @@ class Voyage(models.Model):
         },
     )
     date_dernier_maj = fields.Datetime(string='Date de MAJ')
+
+    def name_get(self):
+        result = []
+        for voyage in self:
+            date_depart = fields.Datetime.from_string(voyage.date_depart)
+            if date_depart:
+                date = fields.Datetime.to_string(fields.Datetime.context_timestamp(voyage, date_depart))
+            else:
+                date = '2021-01-01'
+            print(date)
+            islands = []
+            for trajet in voyage.trajet_ids:
+                islands.append(trajet.ile_depart_id.name)
+            print(islands)
+            result.append((voyage.id, '%s %s : (%s)' %
+                           (date,
+                            islands, voyage.name
+                            )))
+        return result
 
     def _get_periple(self):
         periple = []
