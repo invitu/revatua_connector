@@ -5,3 +5,4 @@ from . import voyage_trajet
 from . import res_company
 from . import res_country
 from . import res_partner
+from . import product_template
