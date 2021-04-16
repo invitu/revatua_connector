@@ -156,7 +156,7 @@
             <field name="view_mode">tree,form,calendar,kanban</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                        Ajouter un nouveau voyage
+                    Ajouter un nouveau voyage
                 </p>
             </field>
         </record>
@@ -251,5 +251,6 @@
         <record id="revatua_connector.menu_revatua_douane" model="ir.ui.menu">
             <field name="action" ref="action_revatua_nomenclature_douane_view"/>
         </record>
+
     </data>
 </odoo>

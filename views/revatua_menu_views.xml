@@ -5,20 +5,13 @@
         id="revatua_main_menu"
         sequence="65"/>
 
-    <!-- HEADER: GESTION -->
-    <menuitem name="Fret"
-        id="menu_revatua_fret"
-        action="sale.action_quotations"
-        sequence="1"
-        parent="revatua_main_menu"
-        />
-
+        <!-- HEADER: GESTION -->
     <menuitem name="Voyages"
         id="menu_revatua_gestion"
         sequence="2"
         parent="revatua_main_menu"
         />
-        
+
         <!-- HEADER: CONFIGURATION -->
     <menuitem name="Configuration"
         id="menu_revatua_configuration"
