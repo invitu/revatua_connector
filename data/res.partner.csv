@@ -1,0 +1,2 @@
+"id","name","is_company","street","street2","city","zip","state_id/id","country_id/id","phone","email","website","lang"
+"revatua_connector.partner_dgae","DGAE - Direction générale des affaires économiques",1,"Bâtiment des Affaires Economiques, Fare ute","BP 82","Papeete","98713",l10n_pf_islands.state_pf_44,"base.pf","40 50 97 97","dgae@economie.gov.pf","https://www.dgae.gov.pf","fr_FR"
