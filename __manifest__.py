@@ -22,7 +22,7 @@ Ce module permet de se conneter à l'API de Revatua
     'data': [
         'security/revatua_security.xml',
         'security/ir.model.access.csv',
-        'data/res.partner.csv',
+        'data/res.partner.xml',
         'data/res.country.state.csv',
         'data/product.template.csv',
         'views/voyage_views.xml',
