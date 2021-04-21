@@ -25,8 +25,8 @@ Ce module permet de se conneter à l'API de Revatua
         'data/res.partner.xml',
         'data/res.country.state.csv',
         'data/product.template.csv',
-        'views/voyage_views.xml',
         'views/revatua_menu_views.xml',
+        'views/voyage_views.xml',
         'views/res_company_views.xml',
     ],
     # only loaded in demonstration mode
