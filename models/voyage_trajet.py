@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields, models, api
 from datetime import datetime
+import pytz
 
 
 class Trajet(models.Model):
@@ -145,16 +146,20 @@ class Voyage(models.Model):
         return result
 
     def _get_periple(self):
+        timezone = pytz.timezone(self._context.get('tz') or self.env.user.tz or 'UTC')
+
         periple = []
         for line in self.trajet_ids:
+            datedpttz = line.date_depart.astimezone(timezone)
+            datearrtz = line.date_arrivee.astimezone(timezone)
             periple.append({
-                "dateDepart": line.date_depart.strftime("%Y-%m-%d"),
-                "heureDepart": line.date_depart.strftime("%H:%M"),
+                "dateDepart": datedpttz.strftime("%Y-%m-%d"),
+                "heureDepart": datedpttz.strftime("%H:%M"),
                 "idIleDepart": line.ile_depart_id.id_revatua,
                 "idlieudepart": line.lieu_depart_id.id_revatua,
-                "dateArrivee": line.date_arrivee.strftime("%Y-%m-%d"),
+                "dateArrivee": datearrtz.strftime("%Y-%m-%d"),
+                "heureArrivee": datearrtz.strftime("%H:%M"),
                 "idIleArrivee": line.ile_arrivee_id.id_revatua,
-                "heureArrivee": line.date_arrivee.strftime("%H:%M"),
                 "idlieuarrivee":  line.lieu_arrivee_id.id_revatua
             })
         return periple
