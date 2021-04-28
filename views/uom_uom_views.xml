@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_uom_uom_form_revatua" model="ir.ui.view">
+        <field name="name">uom.uom.form.view.revatua</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="code_revatua"/>
+            </field>
+        </field>
+    </record>
+</odoo>
