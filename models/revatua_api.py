@@ -60,7 +60,7 @@ class RevatuaApi(models.Model):
             raise UserError(_('We had trouble to update your data, please retry later or contact your support if the problem persists - Network Error'))
         return r
 
-    def api_patch(self, url):
+    def api_patch(self, url, data):
         company = self.env.company
         company.check_validity()
         token = company.revatua_oauth_access_token
@@ -71,13 +71,14 @@ class RevatuaApi(models.Model):
             "accept": "application/json",
         }
         try:
-            r = requests.patch(url_request, verify=False, headers=headers)
+            r = requests.patch(url_request, json=data, verify=False, headers=headers)
             if r.status_code != 200:
                 raise UserError(_('Message %s - Detail %s - Error %s') % (r.json().get('message'), r.json().get('detail'), r.status_code))
             r.raise_for_status()
         except requests.exceptions.RequestException as e:
             _logger.exception(e)
             raise UserError(_('We had trouble to cancel your data, please retry later or contact your support if the problem persists - Network Error'))
+        return r
 
     def api_get(self, url):
         company = self.env.company
