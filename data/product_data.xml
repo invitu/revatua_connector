@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Allow updating on noupdate=True records -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value
+                    eval="[('module', '=', 'product'), ('name', '=', 'decimal_volume')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+
+        <!-- We force the data update -->
+        <record id="product.decimal_volume" model="decimal.precision">
+            <field name="digits">3</field>
+        </record>
+
+        <!-- Revoke noupdate change -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value
+                    eval="[('module', '=', 'product'), ('name', '=', 'decimal_volume')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+    </data>
+</odoo>

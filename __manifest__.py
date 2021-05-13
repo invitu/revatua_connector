@@ -15,12 +15,14 @@ Ce module permet de se conneter à l'API de Revatua
     # any module necessary for this one to work correctly
     'depends': [
         'base',
+        'product',
         'l10n_pf_archipels',
     ],
 
     # always loaded
     'data': [
         'security/revatua_security.xml',
+        'data/product_data.xml',
         'data/res.partner.xml',
         'data/uom_uom_data.xml',
         'data/res.country.state.csv',
