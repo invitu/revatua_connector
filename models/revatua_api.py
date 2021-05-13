@@ -2,9 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import requests
-import json
-from datetime import datetime as dt
-from datetime import timedelta as td
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
@@ -20,16 +17,20 @@ class RevatuaApi(models.Model):
     _name = "revatua.api"
     _description = "Revatua Service"
 
-    def api_post(self, url, data):
+    def get_headers(self):
         company = self.env.company
         company.check_validity()
         token = company.revatua_oauth_access_token
-        url_request = REVATUA_BASE_URL + url
         headers = {
             "Authorization": token,
             "Content-Type": "application/json",
             "accept": "application/json",
         }
+        return headers
+
+    def api_post(self, url, data):
+        url_request = REVATUA_BASE_URL + url
+        headers = self.get_headers()
         try:
             r = requests.post(url_request, json=data, verify=False, headers=headers)
             if r.status_code != 201:
@@ -41,15 +42,8 @@ class RevatuaApi(models.Model):
         return r
 
     def api_put(self, url, data):
-        company = self.env.company
-        company.check_validity()
-        token = company.revatua_oauth_access_token
         url_request = REVATUA_BASE_URL + url
-        headers = {
-            "Authorization": token,
-            "Content-Type": "application/json",
-            "accept": "application/json",
-        }
+        headers = self.get_headers()
         try:
             r = requests.put(url_request, json=data, verify=False, headers=headers)
             if r.status_code != 200:
@@ -61,15 +55,8 @@ class RevatuaApi(models.Model):
         return r
 
     def api_patch(self, url, data):
-        company = self.env.company
-        company.check_validity()
-        token = company.revatua_oauth_access_token
         url_request = REVATUA_BASE_URL + url
-        headers = {
-            "Authorization": token,
-            "Content-Type": "application/json",
-            "accept": "application/json",
-        }
+        headers = self.get_headers()
         try:
             r = requests.patch(url_request, json=data, verify=False, headers=headers)
             if r.status_code != 200:
@@ -81,15 +68,8 @@ class RevatuaApi(models.Model):
         return r
 
     def api_get(self, url):
-        company = self.env.company
-        company.check_validity()
-        token = company.revatua_oauth_access_token
         url_request = REVATUA_BASE_URL + url
-        headers = {
-            "Authorization": token,
-            "Content-Type": "application/json",
-            "accept": "application/json",
-        }
+        headers = self.get_headers()
         try:
             r = requests.get(url_request, verify=False, headers=headers)
             if r.status_code != 200:
