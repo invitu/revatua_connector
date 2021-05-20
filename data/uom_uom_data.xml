@@ -31,6 +31,7 @@
     </function>
     <record model='uom.uom' id='uom.product_uom_ton'>
         <field name='code_revatua'>TONNE</field>
+        <field name='rounding'>0.001</field>
     </record>
     <!-- Revoke noupdate change -->
     <function name="write" model="ir.model.data">
@@ -50,6 +51,7 @@
     </function>
     <record model='uom.uom' id='uom.product_uom_cubic_meter'>
         <field name='code_revatua'>M3</field>
+        <field name='rounding'>0.001</field>
     </record>
     <!-- Revoke noupdate change -->
     <function name="write" model="ir.model.data">
