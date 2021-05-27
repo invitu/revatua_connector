@@ -33,8 +33,8 @@ class ResCompany(models.Model):
             if r.status_code != 200:
                 raise UserError(_('We had trouble to create your data, retry later or contact your support if the problem persists - Error %s') % r.status_code)
             r.raise_for_status()
-            self.revatua_token_expiry_date = dt.now() + td(seconds=r.json()["expires_in"])
-            self.revatua_oauth_access_token = "Bearer " + r.json()["access_token"]
+            self.sudo().revatua_token_expiry_date = dt.now() + td(seconds=r.json()["expires_in"])
+            self.sudo().revatua_oauth_access_token = "Bearer " + r.json()["access_token"]
         except requests.exceptions.RequestException as e:
             _logger.exception(e)
             raise UserError(_('We had trouble to create your data, please retry later or contact your support if the problem persists - Network Error'))
