@@ -13,7 +13,6 @@
             <field name="phone">40 50 97 97</field>
             <field name="email">dgae@economie.gov.pf</field>
             <field name="website">https://www.dgae.gov.pf</field>
-            <field name="lang">fr_FR</field>
         </record>
     </data>
 </odoo>
