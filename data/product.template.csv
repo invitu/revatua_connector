@@ -1,17 +1,18 @@
-"id","name","id_revatua","est_contenant","sale_ok","purchase_ok"
-"revatua_connector.contenant_1","CONTENEUR",1,1,1,0
-"revatua_connector.contenant_2","CITERNE",2,1,1,0
-"revatua_connector.contenant_3","CUBITAINER",3,1,1,0
-"revatua_connector.contenant_4","FUT",4,1,1,0
-"revatua_connector.contenant_5","BONBONNE",5,1,1,0
-"revatua_connector.contenant_6","TOUQUE",6,1,1,0
-"revatua_connector.contenant_7","BIG BAG",7,1,1,0
-"revatua_connector.contenant_8","PALETTE",8,1,1,0
-"revatua_connector.contenant_9","BAC",9,1,1,0
-"revatua_connector.contenant_10","GLACIERE",10,1,1,0
-"revatua_connector.contenant_11","BOUTEILLE",11,1,1,0
-"revatua_connector.contenant_12","RACK",12,1,1,0
-"revatua_connector.contenant_13","CARTON",13,1,1,0
-"revatua_connector.contenant_14","CAISSE",14,1,1,0
-"revatua_connector.contenant_15","POT",15,1,1,0
-"revatua_connector.contenant_16","SAC",16,1,1,0
+"id","name","id_revatua","est_contenant","sale_ok","purchase_ok","volume"
+"revatua_connector.contenant_1","CONTENEUR 20'",1,1,1,0,33
+"revatua_connector.contenant_17","CONTENEUR 40'",1,1,1,0,67
+"revatua_connector.contenant_2","CITERNE",2,1,1,0,
+"revatua_connector.contenant_3","CUBITAINER",3,1,1,0,
+"revatua_connector.contenant_4","FUT",4,1,1,0,
+"revatua_connector.contenant_5","BONBONNE",5,1,1,0,
+"revatua_connector.contenant_6","TOUQUE",6,1,1,0,
+"revatua_connector.contenant_7","BIG BAG",7,1,1,0,
+"revatua_connector.contenant_8","PALETTE",8,1,1,0,
+"revatua_connector.contenant_9","BAC",9,1,1,0,
+"revatua_connector.contenant_10","GLACIERE",10,1,1,0,
+"revatua_connector.contenant_11","BOUTEILLE",11,1,1,0,
+"revatua_connector.contenant_12","RACK",12,1,1,0,
+"revatua_connector.contenant_13","CARTON",13,1,1,0,
+"revatua_connector.contenant_14","CAISSE",14,1,1,0,
+"revatua_connector.contenant_15","POT",15,1,1,0,
+"revatua_connector.contenant_16","SAC",16,1,1,0,
