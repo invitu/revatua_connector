@@ -33,7 +33,9 @@ class RevatuaApi(models.Model):
         headers = self.get_headers()
         try:
             r = requests.post(url_request, json=data, verify=False, headers=headers)
-            if r.status_code != 201:
+            if r.status_code == 500:
+                raise UserError(_('Erreur Revatua Internal Server Error 500 : Contactez la DPAM !'))
+            elif r.status_code != 201:
                 raise UserError(_('Message Revatua %s - Detail %s - Error %s') % (r.json().get('message'), r.json().get('detail'), r.status_code))
             r.raise_for_status()
         except requests.exceptions.RequestException as e:
@@ -46,7 +48,9 @@ class RevatuaApi(models.Model):
         headers = self.get_headers()
         try:
             r = requests.put(url_request, json=data, verify=False, headers=headers)
-            if r.status_code != 200:
+            if r.status_code == 500:
+                raise UserError(_('Erreur Revatua Internal Server Error 500 : Contactez la DPAM !'))
+            elif r.status_code != 200:
                 raise UserError(_('Message Revatua %s - Detail %s - Error %s') % (r.json().get('message'), r.json().get('detail'), r.status_code))
             r.raise_for_status()
         except requests.exceptions.RequestException as e:
@@ -59,7 +63,9 @@ class RevatuaApi(models.Model):
         headers = self.get_headers()
         try:
             r = requests.patch(url_request, json=data, verify=False, headers=headers)
-            if r.status_code != 200:
+            if r.status_code == 500:
+                raise UserError(_('Erreur Revatua Internal Server Error 500 : Contactez la DPAM !'))
+            elif r.status_code != 200:
                 raise UserError(_('Message Revatua %s - Detail %s - Error %s') % (r.json().get('message'), r.json().get('detail'), r.status_code))
             r.raise_for_status()
         except requests.exceptions.RequestException as e:
@@ -72,7 +78,9 @@ class RevatuaApi(models.Model):
         headers = self.get_headers()
         try:
             r = requests.get(url_request, verify=False, headers=headers)
-            if r.status_code != 200:
+            if r.status_code == 500:
+                raise UserError(_('Erreur Revatua Internal Server Error 500 : Contactez la DPAM !'))
+            elif r.status_code != 200:
                 raise UserError(_('Message Revatua %s - Detail %s - Error %s') % (r.json().get('message'), r.json().get('detail'), r.status_code))
             r.raise_for_status()
         except requests.exceptions.RequestException as e:
