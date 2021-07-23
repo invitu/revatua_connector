@@ -3,6 +3,7 @@
     <!-- MAIN MENU -->
     <menuitem name="Maritime"
         id="revatua_main_menu"
+        web_icon="revatua_connector,static/description/icon.png"
         sequence="65"/>
 
         <!-- HEADER: GESTION -->
