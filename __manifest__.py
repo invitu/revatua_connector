@@ -6,7 +6,7 @@
     'description': """
 Ce module permet de se conneter à l'API de Revatua
 """,
-    'author': 'INVITU, Tymofii GLUKHOV, Cyril Vinh Tung ',
+    'author': 'INVITU',
     'website': 'http://www.invitu.com',
 
     'category': 'API',
