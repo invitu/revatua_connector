@@ -1,4 +1,5 @@
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Copyright 2021 INVITU - Cyril VINH-TUNG
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Revatua Connector",
 
@@ -35,4 +36,5 @@ Ce module permet de se conneter à l'API de Revatua
     'demo': [
     ],
     'installable': True,
+    'license': 'AGPL-3',
 }
